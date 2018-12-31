@@ -29,24 +29,54 @@ repeat
 		
 	end if
   (* code tu change the brightness begin here *)
-	repeat with x from 5 to 14
-		log x
-		set n to 0
-		n = n + 1
+	repeat
+		delay 900
+		set x to hours of (current date)
+		set x to x - 5
+		if 0 = x then
+			tell application "System Preferences"
+			activate
+				set current pane to pane "com.apple.preference.displays"
+				tell application "System Events"
+					delay 1
+					set value of slider 1 of group 1 of tab group 1 of window 1 of process "System Preferences" to 0.1111 * 0
+					delay 1
+				end tell
+				quit
+			end tell
+		else if 9 ≥ x then
+			tell application "System Preferences"
+				set current pane to pane "com.apple.preference.displays"
+				tell application "System Events"
+					delay 1
+					set value of slider 1 of group 1 of tab group 1 of window 1 of process "System Preferences" to 0.1111 * x
+					delay 1
+				end tell
+				quit
+			end tell
+		else if 17 ≥ x then
+			set x to x - 9
+			tell application "System Preferences"
+				set current pane to pane "com.apple.preference.displays"
+				tell application "System Events"
+					delay 1
+					set value of slider 1 of group 1 of tab group 1 of window 1 of process "System Preferences" to 1 / (x * 11.11)
+					delay 1
+				end tell
+				quit
+			end tell
+			set x to x + 9
+		else
+			tell application "System Preferences"
+				set current pane to pane "com.apple.preference.displays"
+				tell application "System Events"
+					delay 1
+					set value of slider 1 of group 1 of tab group 1 of window 1 of process "System Preferences" to 0.1111 * 0
+					delay 1
+				end tell
+				quit
+			end tell
+		end if
+		
 	end repeat
-	repeat with x from 14 to 23
-		log x
-		set n to 9
-		n = n - 1
-	end repeat
-	tell application "System Preferences"
-		set current pane to pane "com.apple.preference.displays"
-		tell application "System Events"
-		activate
-			delay 1
-			set value of slider 1 of group 1 of tab group 1 of window 1 of process "System Preferences" to 0.1111 * n
-			delay 1
-		end tell
-		quit
-	end tell
 end repeat 
